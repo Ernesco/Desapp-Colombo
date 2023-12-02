@@ -43,6 +43,7 @@ export default function App() {
             style={styles.textInput}
             placeholder='Ingresar Tarea'
             onChangeText={(onChangeTextHandler)}
+            value={textItem}
           />
           <Button styles={styles.BtnContainer}
             title='+'
