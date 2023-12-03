@@ -31,7 +31,7 @@ export default function App() {
       <Text style={styles.textList}>
         {item.value}
       </Text>
-      <Button title='x' onPress={() => onSelectItemHandler(item.id)} />
+      <Button title='X' onPress={() => onSelectItemHandler(item.id)} color="#344e41"/>
     </View>
   )
 
@@ -45,8 +45,9 @@ export default function App() {
             onChangeText={(onChangeTextHandler)}
             value={textItem}
           />
-          <Button styles={styles.BtnContainer}
-            title='+'
+          <Button styles={styles.btnContainer}
+            title='Ingresar'
+            color={"#344e41"}
             onPress={addItemToList}
             value={textItem}
           />
@@ -61,14 +62,15 @@ export default function App() {
       </View>
       <Modal animationType='slide' visible={modalVisible}>
         <View style={styles.modalMsgContainer}>
-          <Text>Se eliminara:</Text>
-          <Text>{itemSelectedDelete.value}</Text>
+          <Text style={styles.modalTextPr}>Desea Eliminar:</Text>
+          <Text style={styles.modalTextSe}>{itemSelectedDelete.value}?</Text>
         </View>
         <View style={styles.modalBtnContainer}>
           <Button title="Cancelar" color={"#bc4749"} onPress={() => setModalVisible(!modalVisible)} />
           <Button title='Aceptar' color={"#6a994e"} onPress={() => onDeleteItemHandler()} />
         </View>
       </Modal>
+      
     </>
   );
 }
@@ -76,25 +78,24 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#003049',
+    backgroundColor: '#a3b18a',
     padding: 30,
   },
   inputContainer: {
+    backgroundColor: "#dad7cd",
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginBottom: 20,
     marginTop: 20,
+    padding: 10,
+    borderRadius:10
   },
   textInput: {
     width: 200,
-    borderBottomColor: "#fdf0d5",
+    borderBottomColor: "#344e41",
     borderBottomWidth: 1,
-    fontSize: 18,
-    color: "#fdf0d5"
-  },
-  BtnContainer: {
-    fontSize: 40,
-    backgroundColor: "#9b2226"
+    fontSize: 20,
+    color: "#344e41"
   },
   intemList: {
     flexDirection: "row",
@@ -102,21 +103,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     margin: 10,
-    backgroundColor: "#669bbc",
+    backgroundColor: "#dad7cd",
     borderRadius: 10,
     color: "#fdf0d5"
   },
   textList: {
-    color: "#fdf0d5",
+    color: "#344e41",
     fontSize: 18,
   },
   modalMsgContainer: {
     marginTop: 50,
-    alignItems: "center"
+    alignItems: "center",
+    fontSize: 20
   },
   modalBtnContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    paddingTop: 20
-  }
+    paddingTop: 20,
+    borderRadius: 10
+  },
+  modalTextPr:{
+    fontSize: 20
+  },
+  modalTextSe:{
+    fontSize: 16
+  },
 });
