@@ -1,5 +1,7 @@
-import { Button, FlatList, StyleSheet, Text, TextInput, View, Modal} from 'react-native';
+import { Button, FlatList, StyleSheet, Text, TextInput, View, Modal } from 'react-native';
 import { useState } from 'react';
+import CustomModal from './Componentes/CustomModal';
+import CustomInput from './Componentes/CustomInput';
 
 export default function App() {
   const [textItem, setTextItem] = useState("")
@@ -31,27 +33,19 @@ export default function App() {
       <Text style={styles.textList}>
         {item.value}
       </Text>
-      <Button title='X' onPress={() => onSelectItemHandler(item.id)} color="#344e41"/>
+      <Button title='X' onPress={() => onSelectItemHandler(item.id)} color="#344e41" />
     </View>
   )
 
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder='Ingresar Tarea'
-            onChangeText={(onChangeTextHandler)}
-            value={textItem}
-          />
-          <Button styles={styles.btnContainer}
-            title='Ingresar'
-            color={"#344e41"}
-            onPress={addItemToList}
-            value={textItem}
-          />
-        </View>
+        <CustomInput 
+          placeholder="Ingrear Tarea"
+          textItem={textItem}
+          onChangeTextHandlerEvent={onChangeTextHandler}
+          addItemToList={addItemToList}
+        />
         <View>
           <FlatList
             data={intemList}
@@ -60,17 +54,14 @@ export default function App() {
           />
         </View>
       </View>
-      <Modal animationType='slide' visible={modalVisible}>
-        <View style={styles.modalMsgContainer}>
-          <Text style={styles.modalTextPr}>Desea Eliminar:</Text>
-          <Text style={styles.modalTextSe}>{itemSelectedDelete.value}?</Text>
-        </View>
-        <View style={styles.modalBtnContainer}>
-          <Button title="Cancelar" color={"#bc4749"} onPress={() => setModalVisible(!modalVisible)} />
-          <Button title='Aceptar' color={"#6a994e"} onPress={() => onDeleteItemHandler()} />
-        </View>
-      </Modal>
-      
+      <CustomModal 
+        animationType="slide"
+        isVisible={modalVisible}
+        itemSelected={itemSelectedDelete}
+        onDeleteItemHandlerEvent={onDeleteItemHandler}
+        setModalVisibleEvent={setModalVisible}
+      />
+
     </>
   );
 }
@@ -80,22 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#a3b18a',
     padding: 30,
-  },
-  inputContainer: {
-    backgroundColor: "#dad7cd",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginBottom: 20,
-    marginTop: 20,
-    padding: 10,
-    borderRadius:10
-  },
-  textInput: {
-    width: 200,
-    borderBottomColor: "#344e41",
-    borderBottomWidth: 1,
-    fontSize: 20,
-    color: "#344e41"
   },
   intemList: {
     flexDirection: "row",
@@ -110,22 +85,5 @@ const styles = StyleSheet.create({
   textList: {
     color: "#344e41",
     fontSize: 18,
-  },
-  modalMsgContainer: {
-    marginTop: 50,
-    alignItems: "center",
-    fontSize: 20
-  },
-  modalBtnContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    paddingTop: 20,
-    borderRadius: 10
-  },
-  modalTextPr:{
-    fontSize: 20
-  },
-  modalTextSe:{
-    fontSize: 16
   },
 });
